@@ -1,18 +1,30 @@
 import { fetchCategories } from '../services/api'
 
-export const LOAD_CATEGORIES_BEGIN = 'cooksys/whos-who/Home/LOAD_CATEGORIES_BEGIN'
-export const LOAD_CATEGORIES_FAILURE = 'cooksys/whos-who/Home/LOAD_CATEGORIES_FAILURE'
-export const LOAD_CATEGORIES_DONE = 'cooksys/whos-who/Home/LOAD_CATEGORIES_DONE'
-export const LOAD_CATEGORIES_UPDATE = 'cooksys/whos-who/Home/LOAD_CATEGORIES_UPDATE'
-export const SELECT_CATEGORY = 'cooksys/whos-who/Home/SELECT_CATEGORY'
+const LOAD_CATEGORIES_FAILURE = 'cooksys/whos-who/Home/LOAD_CATEGORIES_FAILURE'
+const LOAD_CATEGORIES_DONE = 'cooksys/whos-who/Home/LOAD_CATEGORIES_DONE'
+const SELECT_CATEGORY = 'cooksys/whos-who/Home/SELECT_CATEGORY'
+const SELECT_N_SONGS = 'cooksys/whos-who/Home/SELECT_N_SONGS'
+const SELECT_N_ARTISTS = 'cooksys/whos-who/Home/SELECT_N_ARTISTS'
 
 const initialState = {
   categories: [],
-  errorLoadingCategories: false
+  errorLoadingCategories: false,
+  nSongs: window.localStorage.nSongs ? parseInt(window.localStorage.nSongs) : 1,
+  nArtists: window.localStorage.nArtists ? parseInt(window.localStorage.nArtists) : 2
 }
 
 export default function config (state = initialState, action) {
   switch (action.type) {
+    case SELECT_N_ARTISTS:
+      return {
+        ...state,
+        nArtists: action.nArtists
+      }
+    case SELECT_N_SONGS:
+      return {
+        ...state,
+        nSongs: action.nSongs
+      }
     case LOAD_CATEGORIES_DONE:
       return {
         ...state,
@@ -38,6 +50,16 @@ export default function config (state = initialState, action) {
 export const selectCategory = (category) => ({
   type: SELECT_CATEGORY,
   payload: category
+})
+
+export const selectNSongs = (nSongs) => ({
+  type: SELECT_N_SONGS,
+  nSongs
+})
+
+export const selectNArtists = (nArtists) => ({
+  type: SELECT_N_ARTISTS,
+  nArtists
 })
 
 const loadCategoriesDone = (categories) => ({

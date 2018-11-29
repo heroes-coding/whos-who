@@ -3,10 +3,9 @@ import * as ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import createHistory from 'history/createBrowserHistory'
 import { ConnectedRouter } from 'react-router-redux'
-
-import configureStore from './configureStore'
+import configureStore from './utils/configure-store'
 import { fetchAndStoreAccessToken } from './services/auth'
-import App from './containers/App'
+import App from './containers/app'
 
 // Fetch and store the Spotify access token in localStorage
 fetchAndStoreAccessToken()
