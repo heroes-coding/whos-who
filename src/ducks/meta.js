@@ -1,8 +1,8 @@
 const ADD_SCORE_TO_META = 'ADD_SCORE_TO_META'
 
 const initialState = {
-  wins: window.localStorage.wins && parseInt(window.localStorage.wins) || 0,
-  total: window.localStorage.total && parseInt(window.localStorage.total) || 0
+  wins: (window.localStorage.wins && parseInt(window.localStorage.wins)) || 0,
+  total: (window.localStorage.total && parseInt(window.localStorage.total)) || 0
 }
 
 export default function game (state = initialState, action) {
