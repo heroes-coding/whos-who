@@ -21,6 +21,7 @@
   text-align: center;
   margin: auto;
   padding: 1pt;
+  cursor: pointer;
 }
 
 .incorrectlyGuessedArtist {
@@ -29,4 +30,34 @@
 
 .winningArtist {
   outline: 2pt solid green;
+}
+
+.audioHolder {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding-left: 30pt;
+}
+
+.songInfo {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  justify-content: space-evenly;
+}
+
+.songName {
+  margin: auto;
+  margin-left: 10pt;
+  margin-right: 10pt;
+}
+
+.audioPlayer {
+  margin: auto;
+  flex-grow: 2;
+}
+
+.songPic {
+  border: 1pt solid #333;
+  margin: 10pt;
 }

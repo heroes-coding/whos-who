@@ -1,6 +1,7 @@
 const MAKE_INCORRECT_GUESS = 'MAKE_INCORRECT_GUESS'
 const SET_GUESSES = 'SET_GUESSES'
 const WIN_GAME = 'WIN_GAME'
+const RESET_GAME = 'RESET_GAME'
 
 const initialState = {
   guessesRemaining: null,
@@ -11,9 +12,14 @@ const initialState = {
 
 export default function game (state = initialState, action) {
   switch (action.type) {
-    case SET_GUESSES:
+    case RESET_GAME:
       return {
         ...initialState,
+        guesses: []
+      }
+    case SET_GUESSES:
+      return {
+        ...state,
         guessesRemaining: action.guessesRemaining
       }
     case WIN_GAME:
@@ -46,4 +52,8 @@ export const setGuesses = (guessesRemaining) => ({
 
 export const winGame = () => ({
   type: WIN_GAME
+})
+
+export const resetGame = () => ({
+  type: RESET_GAME
 })

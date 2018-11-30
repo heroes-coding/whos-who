@@ -17,7 +17,7 @@ class Game extends React.Component {
               className={`${styles.artistHolder} ${wonGame && isSinger ? styles.winningArtist : ''} ${guesses.includes(i) ? styles.incorrectlyGuessedArtist : ''}`}
               key={name}
               onClick={() => {
-                if (guesses.includes(i) || wonGame || lostGame) {
+                if (guesses.includes(i) || wonGame || lostGame || !songs.length) {
                   return // don't make the same guess twice
                 }
                 if (isSinger) {
@@ -36,12 +36,19 @@ class Game extends React.Component {
         <div id={styles.songsHolder}>
           {!songs.length && !error && <span>Loading songs...</span>}
           {songs.map((song, i) =>
-            <div key={i} id='audioHolder'>
+            <div key={i} className={styles.audioHolder}>
               <audio
                 id='audio-player'
+                className={styles.audioPlayer}
                 controls
                 src={song.blobURL}
               />
+              {(wonGame || lostGame) && <div className={styles.songInfo}>
+                <div className={styles.songName}>{`[${song.name}] from the album ${song.album.name}`}</div>
+                <div className={styles.songPic}>
+                  <img src={song.album.images.length && song.album.images[song.album.images.length - 1].url} alt={song.album.name} />
+                </div>
+              </div>}
             </div>
           )}
         </div>
@@ -53,7 +60,9 @@ class Game extends React.Component {
         </div>
         <div id={styles.resetGame}>
           {(error || wonGame || lostGame || !guessesRemaining) && <button
-            onClick={() => this.props.history.push('/')}
+            onClick={() => {
+              this.props.history.push('/')
+            }}
           >
               Reset Game
           </button>}
@@ -72,8 +81,7 @@ Game.propTypes = {
   guessesRemaining: PropTypes.number,
   guesses: PropTypes.array,
   wonGame: PropTypes.bool,
-  lostGame: PropTypes.bool,
-  history: PropTypes.history
+  lostGame: PropTypes.bool
 }
 
 const mapStateToProps = (state) => ({

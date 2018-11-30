@@ -1,4 +1,5 @@
 import { fetchCategories } from '../services/api'
+import { nonArtistGenres } from '../utils/helpers'
 
 const LOAD_CATEGORIES_FAILURE = 'cooksys/whos-who/Home/LOAD_CATEGORIES_FAILURE'
 const LOAD_CATEGORIES_DONE = 'cooksys/whos-who/Home/LOAD_CATEGORIES_DONE'
@@ -10,7 +11,8 @@ const initialState = {
   categories: [],
   errorLoadingCategories: false,
   nSongs: window.localStorage.nSongs ? parseInt(window.localStorage.nSongs) : 1,
-  nArtists: window.localStorage.nArtists ? parseInt(window.localStorage.nArtists) : 2
+  nArtists: window.localStorage.nArtists ? parseInt(window.localStorage.nArtists) : 2,
+  selectedCategory: window.localStorage.selectedCategory || null
 }
 
 export default function config (state = initialState, action) {
@@ -27,11 +29,17 @@ export default function config (state = initialState, action) {
         ...state,
         nSongs: action.nSongs
       }
+    case SELECT_CATEGORY:
+      window.localStorage.selectedCategory = action.selectedCategory
+      return {
+        ...state,
+        selectedCategory: action.selectedCategory
+      }
     case LOAD_CATEGORIES_DONE:
       return {
         ...state,
         errorLoadingCategories: false,
-        categories: action.payload
+        categories: action.payload.filter(c => !nonArtistGenres.includes(c))
       }
     case LOAD_CATEGORIES_FAILURE:
       return {
@@ -39,19 +47,14 @@ export default function config (state = initialState, action) {
         errorLoadingCategories: true,
         categories: initialState.categories
       }
-    case SELECT_CATEGORY:
-      return {
-        ...state,
-        selectedCategory: action.payload
-      }
     default:
       return state
   }
 }
 
-export const selectCategory = (category) => ({
+export const selectCategory = (selectedCategory) => ({
   type: SELECT_CATEGORY,
-  payload: category
+  selectedCategory
 })
 
 export const selectNSongs = (nSongs) => ({

@@ -2,9 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import connect from 'react-redux/es/connect/connect'
 import { Link } from 'react-router-dom'
-import { nonArtistGenres } from '../../utils/helpers'
-
 import { loadCategories, selectCategory, selectNSongs, selectNArtists, loadSongs } from '../../reducers'
+import styles from './home.module.css'
 
 class Home extends React.Component {
   componentDidMount () {
@@ -20,7 +19,7 @@ class Home extends React.Component {
 
   render () {
     const { nSongs, nArtists, categories: localCategories, selectedCategory, selectNSongs, selectNArtists, loadSongs } = this.props
-    const categories = localCategories.filter(c => !nonArtistGenres.includes(c)).map(
+    const categories = localCategories.map(
       category => (
         <option
           key={category}
@@ -30,17 +29,25 @@ class Home extends React.Component {
     )
 
     return (
-      <div>
-        Category: <select onChange={(event) => this.props.selectCategory(event.target.value)}>
-          {categories}
-        </select>
-        Number of Songs: <select onChange={(event) => selectNSongs(parseInt(event.target.value))}>
-          {[1, 2, 3].map(n => <option key={n} selected={nSongs === n} value={n} >{n}</option>)}
-        </select>
-        Number of Artists: <select onChange={(event) => selectNArtists(parseInt(event.target.value))}>
-          {[2, 3, 4].map(n => <option key={n} selected={nArtists === n} value={n} >{n}</option>)}
-        </select>
-        <Link to='/game' onClick={() => loadSongs(selectedCategory)}>Go!</Link>
+      <div id={styles.homeHolder}>
+        <div className={styles.menuHolder}>
+          Category: <select value={selectedCategory || ''} onChange={(event) => this.props.selectCategory(event.target.value)}>
+            {categories}
+          </select>
+        </div>
+        <div className={styles.menuHolder}>
+          Number of Songs: <select value={nSongs} onChange={(event) => selectNSongs(parseInt(event.target.value))}>
+            {[1, 2, 3].map(n => <option key={n} value={n} >{n}</option>)}
+          </select>
+        </div>
+        <div className={styles.menuHolder}>
+          Number of Artists: <select value={nArtists} onChange={(event) => selectNArtists(parseInt(event.target.value))}>
+            {[2, 3, 4].map(n => <option key={n} value={n} >{n}</option>)}
+          </select>
+        </div>
+        <div className={styles.startLinkHolder}>
+          <Link onClick={() => loadSongs(selectedCategory)} to='/game' >Play the artist guessing game!</Link>
+        </div>
       </div>
     )
   }

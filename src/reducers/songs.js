@@ -1,6 +1,6 @@
 import { fetchArtistsByGenre } from '../services/api'
-import { chooseRandomNFromList } from '../utils/helpers'
-import { setGuesses } from '.'
+import { chooseRandomNFromList, downloadSongs } from '../utils/helpers'
+import { setGuesses, resetGame } from './game'
 
 const LOAD_SONGS_BEGIN = 'cooksys/whos-who/Home/LOAD_SONGS'
 const LOAD_SONGS_FAILURE = 'cooksys/whos-who/Home/LOAD_SONGS_FAILURES'
@@ -49,6 +49,11 @@ const loadSongsBegin = () => ({
   type: LOAD_SONGS_BEGIN
 })
 
+const loadSongsDone = songs => ({
+  type: LOAD_SONGS_DONE,
+  songs
+})
+
 const loadArtists = artists => ({
   type: LOAD_ARTISTS,
   artists
@@ -60,6 +65,7 @@ const loadSongsFailure = (error) => ({
 })
 
 export const loadSongs = genre => (dispatch, getState) => new Promise((resolve, reject) => {
+  dispatch(resetGame())
   // all the magic takes place here and in the api, as follows:
   // 1) Get a random artist from a genre
   // 2) Get similar artists (instead of other random artists from the same genre)
@@ -78,12 +84,9 @@ export const loadSongs = genre => (dispatch, getState) => new Promise((resolve, 
       dispatch(loadArtists(artists))
       dispatch(setGuesses(nArtists - 1))
       return songList
-    })
-    /*
-    .then(songs => chooseRandomNFromList(songs, nSongs))
+    }).then(songs => chooseRandomNFromList(songs, nSongs))
     .then(downloadSongs)
     .then(songs => dispatch(loadSongsDone(songs)))
-    */
     .catch(err => {
       console.log(err, String(err))
       dispatch(loadSongsFailure(String(err)))

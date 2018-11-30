@@ -5,8 +5,8 @@ export const nonArtistGenres = [
   'Decades',
   'Amplify: 100% Latinx',
   'Black history is now',
-  'Gaming'
-
+  'Gaming',
+  'Romance'
 ]
 
 export const downloadSongs = songs => new Promise((resolve, reject) => {
