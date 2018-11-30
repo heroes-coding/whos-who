@@ -4,7 +4,6 @@ import connect from 'react-redux/es/connect/connect'
 import styles from './game.module.css'
 import { makeIncorrectGuess, winGame } from '../../reducers'
 import UnknownPicture from './unknown.jpeg'
-import { withRouter } from 'react-router-dom'
 
 class Game extends React.Component {
   render () {
@@ -61,7 +60,7 @@ class Game extends React.Component {
         <div id={styles.resetGame}>
           {(error || wonGame || lostGame || !guessesRemaining) && <button
             onClick={() => {
-              this.props.history.push('/')
+              window.location.replace('./')
             }}
           >
               Reset Game
@@ -96,4 +95,4 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = { makeIncorrectGuess, winGame }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Game))
+export default connect(mapStateToProps, mapDispatchToProps)(Game)
