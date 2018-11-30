@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
 
-import Header from '../../components/header'
+import Header from '../../components/Header'
 import Home from '../Home'
 import Game from '../Game'
 import styles from './app.module.css'

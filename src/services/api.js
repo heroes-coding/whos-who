@@ -82,7 +82,6 @@ export const fetchFromSpotify = ({ endpoint, params }, attempts = 0) => new Prom
     url += `?${paramString}`
   }
   url = encodeURI(url)
-  console.log({ url, spotifyToken })
   const options = { headers: { 'Authorization': `Bearer ${spotifyToken}` } }
   resolve(request(url, options))
 })
