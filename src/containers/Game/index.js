@@ -30,10 +30,10 @@ class Game extends React.Component {
               {name}
             </div>
           )}
-          {!artists.length && !error && <span>Loading artists...</span>}
+          {guessesRemaining && !artists.length && !error && <span>Loading artists...</span>}
         </div>
         <div id={styles.songsHolder}>
-          {!songs.length && !error && <span>Loading songs...</span>}
+          {!songs.length && !error && guessesRemaining && <span>Loading songs...</span>}
           {songs.map((song, i) =>
             <div key={i} className={styles.audioHolder}>
               <audio
@@ -55,7 +55,7 @@ class Game extends React.Component {
           {error && <div id='gameError'>{error}</div>}
           {wonGame && <div>You have WON the game!</div>}
           {lostGame && <div>You have LOST the game!</div>}
-          {!wonGame && !lostGame && !error && <div>You have {guessesRemaining} guesses remaining</div>}
+          {guessesRemaining && !wonGame && !lostGame && !error && <div>You have {guessesRemaining} guesses remaining</div>}
         </div>
         <div id={styles.resetGame}>
           {(error || wonGame || lostGame || !guessesRemaining) && <button
