@@ -9,7 +9,7 @@ const App = (props) => (
   <div>
     <Route path='/' component={Header} />
     <Route exact path='/' component={Home} />
-    <Route exact path='/' component={Game} />
+    <Route exact path='/game' component={Game} />
   </div>
 )
 

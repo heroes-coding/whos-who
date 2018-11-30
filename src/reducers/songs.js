@@ -1,5 +1,6 @@
-import { fetchArtistsByGenre, getSongsFromArtist } from '../services/api'
+import { fetchArtistsByGenre } from '../services/api'
 import { chooseRandomNFromList, downloadSongs } from '../utils/helpers'
+import { setGuesses } from '.'
 
 const LOAD_SONGS_BEGIN = 'cooksys/whos-who/Home/LOAD_SONGS'
 const LOAD_SONGS_FAILURE = 'cooksys/whos-who/Home/LOAD_SONGS_FAILURES'
@@ -10,29 +11,23 @@ const MARK_CORRECT_ARTIST = 'cooksys/whos-who/Home/MARK_CORRECT_ARTIST'
 const initialState = {
   songs: [],
   artists: [],
-  loadingSongs: false,
-  error: null,
-  correctArtist: null
+  error: null
 }
 
 export default function config (state = initialState, action) {
   switch (action.type) {
     case LOAD_SONGS_BEGIN:
       return {
-        ...initialState,
-        loadingSongs: true
+        ...initialState
       }
     case LOAD_SONGS_FAILURE:
       return {
         ...state,
-        loadingSongs: false,
         error: action.error
       }
     case LOAD_SONGS_DONE:
       return {
         ...state,
-        errorLoadingSongs: false,
-        loadingSongs: false,
         songs: action.songs
       }
     case LOAD_ARTISTS:
@@ -49,11 +44,6 @@ export default function config (state = initialState, action) {
       return state
   }
 }
-
-const selectCorrectArtist = (correctArtist) => ({
-  type: MARK_CORRECT_ARTIST,
-  correctArtist
-})
 
 const loadSongsBegin = () => ({
   type: LOAD_SONGS_BEGIN
@@ -91,10 +81,14 @@ export const loadSongs = genre => (dispatch, getState) => new Promise((resolve, 
         throw new Error('Not enough artists in this category')
       }
       dispatch(loadArtists(artists))
+      dispatch(setGuesses(nArtists - 1))
       return songList
-    }).then(songs => chooseRandomNFromList(songs, nSongs))
+    })
+    /*
+    .then(songs => chooseRandomNFromList(songs, nSongs))
     .then(downloadSongs)
     .then(songs => dispatch(loadSongsDone(songs)))
+    */
     .catch(err => {
       console.log(err, String(err))
       dispatch(loadSongsFailure(String(err)))

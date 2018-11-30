@@ -3,6 +3,7 @@ import { combineReducers } from 'redux'
 // reducers
 import config from './config'
 import songs from './songs'
+import game from './game'
 export { loadCategories, selectCategory, selectNArtists, selectNSongs } from './config'
 export { makeIncorrectGuess, setGuesses, winGame } from './game'
 export { loadSongs } from './songs.js'
@@ -23,6 +24,7 @@ export default function createReducer () {
   return combineReducers({
     routes,
     config,
-    songs
+    songs,
+    game
   })
 }

@@ -1,3 +1,14 @@
+export const nonArtistGenres = [
+  'Top Lists',
+  'Happy Holidays',
+  'Mood',
+  'Decades',
+  'Amplify: 100% Latinx',
+  'Black history is now',
+  'Gaming'
+
+]
+
 export const downloadSongs = songs => new Promise((resolve, reject) => {
   const songPromises = songs.map(s => s.previewURL).map(previewURL =>
     window.fetch(previewURL, {

@@ -1,0 +1,32 @@
+#gameHolder {
+  display: flex;
+  flex-direction: column;
+}
+
+#artistsHolder, #songsHolder, #gameInfoHolder, #resetGame {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 20pt;
+  text-align: center;
+}
+
+#songsHolder {
+  flex-direction: column;
+}
+
+.artistHolder {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin: auto;
+  padding: 1pt;
+}
+
+.incorrectlyGuessedArtist {
+  outline: 2pt solid red;
+}
+
+.winningArtist {
+  outline: 2pt solid green;
+}

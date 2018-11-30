@@ -5,7 +5,8 @@ const WIN_GAME = 'WIN_GAME'
 const initialState = {
   guessesRemaining: null,
   wonGame: false,
-  lostGame: false
+  lostGame: false,
+  guesses: []
 }
 
 export default function game (state = initialState, action) {
@@ -25,15 +26,17 @@ export default function game (state = initialState, action) {
       return {
         ...state,
         lostGame: !guessesRemaining,
-        guessesRemaining
+        guessesRemaining,
+        guesses: [...state.guesses, action.guessIndex]
       }
     default:
       return state
   }
 }
 
-export const makeIncorrectGuess = () => ({
-  type: MAKE_INCORRECT_GUESS
+export const makeIncorrectGuess = (guessIndex) => ({
+  type: MAKE_INCORRECT_GUESS,
+  guessIndex
 })
 
 export const setGuesses = (guessesRemaining) => ({

@@ -2,7 +2,7 @@ import React from 'react'
 
 const Header = (props) =>
   <header>
-    <span>Header</span>
+    <span>The Artist Guessing Game!</span>
   </header>
 
 export default Header

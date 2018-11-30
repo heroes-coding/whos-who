@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import connect from 'react-redux/es/connect/connect'
+import { Link } from 'react-router-dom'
+import { nonArtistGenres } from '../../utils/helpers'
 
 import { loadCategories, selectCategory, selectNSongs, selectNArtists, loadSongs } from '../../reducers'
 
@@ -18,7 +20,7 @@ class Home extends React.Component {
 
   render () {
     const { nSongs, nArtists, categories: localCategories, selectedCategory, selectNSongs, selectNArtists, loadSongs } = this.props
-    const categories = localCategories.map(
+    const categories = localCategories.filter(c => !nonArtistGenres.includes(c)).map(
       category => (
         <option
           key={category}
@@ -33,12 +35,12 @@ class Home extends React.Component {
           {categories}
         </select>
         Number of Songs: <select onChange={(event) => selectNSongs(parseInt(event.target.value))}>
-          {[1, 2, 3].map(n => <option key={n} defaultValue={nSongs} value={n} >{n}</option>)}
+          {[1, 2, 3].map(n => <option key={n} selected={nSongs === n} value={n} >{n}</option>)}
         </select>
         Number of Artists: <select onChange={(event) => selectNArtists(parseInt(event.target.value))}>
-          {[2, 3, 4].map(n => <option key={n} defaultValue={nArtists} value={n} >{n}</option>)}
+          {[2, 3, 4].map(n => <option key={n} selected={nArtists === n} value={n} >{n}</option>)}
         </select>
-        <button onClick={() => loadSongs(selectedCategory)}>Go!</button>
+        <Link to='/game' onClick={() => loadSongs(selectedCategory)}>Go!</Link>
       </div>
     )
   }

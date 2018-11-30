@@ -16,11 +16,13 @@ const initialState = {
 export default function config (state = initialState, action) {
   switch (action.type) {
     case SELECT_N_ARTISTS:
+      window.localStorage.nArtists = action.nArtists
       return {
         ...state,
         nArtists: action.nArtists
       }
     case SELECT_N_SONGS:
+      window.localStorage.nSongs = action.nSongs
       return {
         ...state,
         nSongs: action.nSongs
