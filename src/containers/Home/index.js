@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import connect from 'react-redux/es/connect/connect'
 import { Link } from 'react-router-dom'
-import { loadCategories, selectCategory, selectNSongs, selectNArtists, loadSongs } from '../../reducers'
+import { loadCategories, selectCategory, selectNSongs, selectNArtists, loadSongs } from '../../ducks'
 import styles from './home.module.css'
 
 class Home extends React.Component {

@@ -36,10 +36,12 @@ export default function config (state = initialState, action) {
         selectedCategory: action.selectedCategory
       }
     case LOAD_CATEGORIES_DONE:
+      const categories = action.payload.filter(c => !nonArtistGenres.includes(c))
+      categories.sort()
       return {
         ...state,
         errorLoadingCategories: false,
-        categories: action.payload.filter(c => !nonArtistGenres.includes(c))
+        categories
       }
     case LOAD_CATEGORIES_FAILURE:
       return {

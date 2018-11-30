@@ -2,12 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import connect from 'react-redux/es/connect/connect'
 import styles from './game.module.css'
-import { makeIncorrectGuess, winGame } from '../../reducers'
+import { makeIncorrectGuess, winGame, addScoreToMeta } from '../../ducks'
 import UnknownPicture from './unknown.jpeg'
+import { Link } from 'react-router-dom'
+import homeStyles from '../Home/home.module.css'
 
 class Game extends React.Component {
   render () {
-    const { songs, artists, error, guessesRemaining, guesses, makeIncorrectGuess, winGame, wonGame, lostGame } = this.props
+    const { wins, total, songs, artists, error, addScoreToMeta, guessesRemaining, guesses, makeIncorrectGuess, winGame, wonGame, lostGame } = this.props
     return (
       <div id={styles.gameHolder}>
         <div id={styles.artistsHolder}>
@@ -21,7 +23,11 @@ class Game extends React.Component {
                 }
                 if (isSinger) {
                   winGame()
+                  addScoreToMeta(1)
                 } else {
+                  if (guessesRemaining === 1) {
+                    addScoreToMeta(0)
+                  }
                   makeIncorrectGuess(i)
                 }
               }}
@@ -30,10 +36,10 @@ class Game extends React.Component {
               {name}
             </div>
           )}
-          {guessesRemaining && !artists.length && !error && <span>Loading artists...</span>}
+          {!!guessesRemaining && !artists.length && !error && <span>Loading artists...</span>}
         </div>
         <div id={styles.songsHolder}>
-          {!songs.length && !error && guessesRemaining && <span>Loading songs...</span>}
+          {!songs.length && !error && !!guessesRemaining && <span>Loading songs...</span>}
           {songs.map((song, i) =>
             <div key={i} className={styles.audioHolder}>
               <audio
@@ -55,16 +61,13 @@ class Game extends React.Component {
           {error && <div id='gameError'>{error}</div>}
           {wonGame && <div>You have WON the game!</div>}
           {lostGame && <div>You have LOST the game!</div>}
-          {guessesRemaining && !wonGame && !lostGame && !error && <div>You have {guessesRemaining} guesses remaining</div>}
+          {(wonGame || lostGame) && `You have won ${wins} / ${total} of all rounds played!  Keep trying!`}
+          {!!guessesRemaining && !wonGame && !lostGame && !error && <div>You have {guessesRemaining} guesses remaining</div>}
         </div>
         <div id={styles.resetGame}>
-          {(error || wonGame || lostGame || !guessesRemaining) && <button
-            onClick={() => {
-              window.location.replace('./')
-            }}
-          >
-              Reset Game
-          </button>}
+          {(error || wonGame || lostGame || !guessesRemaining) && <div className={homeStyles.startLinkHolder}>
+            <Link to='/' >Play again!</Link>
+          </div>}
         </div>
       </div>
     )
@@ -77,10 +80,13 @@ Game.propTypes = {
   error: PropTypes.string,
   winGame: PropTypes.func.isRequired,
   makeIncorrectGuess: PropTypes.func.isRequired,
+  addScoreToMeta: PropTypes.func.isRequired,
   guessesRemaining: PropTypes.number,
   guesses: PropTypes.array,
   wonGame: PropTypes.bool,
-  lostGame: PropTypes.bool
+  lostGame: PropTypes.bool,
+  total: PropTypes.number,
+  wins: PropTypes.number
 }
 
 const mapStateToProps = (state) => ({
@@ -90,9 +96,11 @@ const mapStateToProps = (state) => ({
   wonGame: state.game.wonGame,
   lostGame: state.game.lostGame,
   guessesRemaining: state.game.guessesRemaining,
-  guesses: state.game.guesses
+  guesses: state.game.guesses,
+  wins: state.meta.wins,
+  total: state.meta.total
 })
 
-const mapDispatchToProps = { makeIncorrectGuess, winGame }
+const mapDispatchToProps = { makeIncorrectGuess, winGame, addScoreToMeta }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game)

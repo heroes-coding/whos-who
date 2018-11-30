@@ -11,6 +11,7 @@
   text-align: center;
 }
 
+
 #songsHolder {
   flex-direction: column;
 }
@@ -23,6 +24,27 @@
   padding: 1pt;
   cursor: pointer;
 }
+
+.artistHolder {
+  flex-wrap: wrap;
+  padding: 10pt;
+  border: 1pt solid white;
+  box-shadow: 0 0 5px 1px rgba(107, 101, 101, 0.35);
+  margin: 10pt;
+  min-height: 100pt;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.artistHolder:hover {
+  border: 1pt solid gray;
+}
+
+.artistHolder > * {
+  margin: 10pt;
+}
+
 
 .incorrectlyGuessedArtist {
   outline: 2pt solid red;

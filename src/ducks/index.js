@@ -1,12 +1,14 @@
 import { LOCATION_CHANGE } from 'react-router-redux'
 import { combineReducers } from 'redux'
-// reducers
+
 import config from './config'
 import songs from './songs'
 import game from './game'
+import meta from './meta'
 export { loadCategories, selectCategory, selectNArtists, selectNSongs } from './config'
 export { makeIncorrectGuess, setGuesses, winGame } from './game'
 export { loadSongs } from './songs.js'
+export { addScoreToMeta } from './meta.js'
 
 export function routes (state = { location: null }, action) {
   switch (action.type) {
@@ -25,6 +27,7 @@ export default function createReducer () {
     routes,
     config,
     songs,
-    game
+    game,
+    meta
   })
 }

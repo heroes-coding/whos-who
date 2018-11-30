@@ -68,7 +68,9 @@ export const loadSongs = genre => (dispatch, getState) => new Promise((resolve, 
   dispatch(resetGame())
   // all the magic takes place here and in the api, as follows:
   // 1) Get a random artist from a genre
+  //    -- since we are searching for artists and not songs, some categories had to be filtered out
   // 2) Get similar artists (instead of other random artists from the same genre)
+  //    -- this makes for a better game
   // 3) Pick n - 1 similar artists to mix in with the picked artist => Dispatch all artists
   // 4) Get n random songs from the picked artist => Dispatch songs
   const { nArtists, nSongs } = getState().config
