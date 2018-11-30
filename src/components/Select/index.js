@@ -11,7 +11,10 @@ const Select = ({ name, value, onChange, options }) =>
 
 Select.propTypes = {
   name: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ]).isRequired,
   onChange: PropTypes.func.isRequired,
   options: PropTypes.array.isRequired
 }
