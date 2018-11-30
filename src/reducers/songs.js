@@ -1,5 +1,5 @@
 import { fetchArtistsByGenre } from '../services/api'
-import { chooseRandomNFromList, downloadSongs } from '../utils/helpers'
+import { chooseRandomNFromList } from '../utils/helpers'
 import { setGuesses } from '.'
 
 const LOAD_SONGS_BEGIN = 'cooksys/whos-who/Home/LOAD_SONGS'
@@ -47,11 +47,6 @@ export default function config (state = initialState, action) {
 
 const loadSongsBegin = () => ({
   type: LOAD_SONGS_BEGIN
-})
-
-const loadSongsDone = songs => ({
-  type: LOAD_SONGS_DONE,
-  songs
 })
 
 const loadArtists = artists => ({
