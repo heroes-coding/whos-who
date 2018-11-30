@@ -11,6 +11,13 @@
   text-align: center;
 }
 
+#artistsHolder {
+  flex-wrap: wrap;
+}
+
+#gameInfoHolder {
+  margin-top: 0;
+}
 
 #songsHolder {
   flex-direction: column;
@@ -59,6 +66,7 @@
   flex-direction: row;
   justify-content: space-around;
   padding-left: 30pt;
+  margin-bottom: 20pt;
 }
 
 .songInfo {

@@ -5,11 +5,23 @@
   flex-direction: column;
 }
 
+.select {
+  padding: 10pt;
+  background-color: #333;
+  color: #f3f3f3;
+  border: 1px solid #000;
+}
+
+.select:hover {
+  border: 1px solid yellow;
+}
+
 .menuHolder {
   flex-direction: row;
   display: flex;
   justify-content: space-between;
   width: 100%;
+  margin: 10pt 0;
 }
 
 .startLinkHolder {

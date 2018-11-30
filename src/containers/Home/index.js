@@ -31,17 +31,17 @@ class Home extends React.Component {
     return (
       <div id={styles.homeHolder}>
         <div className={styles.menuHolder}>
-          Category: <select value={selectedCategory || ''} onChange={(event) => this.props.selectCategory(event.target.value)}>
+          Category: <select className={styles.select} value={selectedCategory || ''} onChange={(event) => this.props.selectCategory(event.target.value)}>
             {categories}
           </select>
         </div>
         <div className={styles.menuHolder}>
-          Number of Songs: <select value={nSongs} onChange={(event) => selectNSongs(parseInt(event.target.value))}>
+          Number of Songs: <select className={styles.select} value={nSongs} onChange={(event) => selectNSongs(parseInt(event.target.value))}>
             {[1, 2, 3].map(n => <option key={n} value={n} >{n}</option>)}
           </select>
         </div>
         <div className={styles.menuHolder}>
-          Number of Artists: <select value={nArtists} onChange={(event) => selectNArtists(parseInt(event.target.value))}>
+          Number of Artists: <select className={styles.select} value={nArtists} onChange={(event) => selectNArtists(parseInt(event.target.value))}>
             {[2, 3, 4].map(n => <option key={n} value={n} >{n}</option>)}
           </select>
         </div>
